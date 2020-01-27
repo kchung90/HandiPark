@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HandiPark</string>
+    <string name="search">Search</string>
+    <string name="current_location">or Use Current Location</string>
 </resources>

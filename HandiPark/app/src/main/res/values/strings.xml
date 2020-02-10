@@ -2,4 +2,6 @@
     <string name="app_name">HandiPark</string>
     <string name="search">Search</string>
     <string name="current_location">or Use Current Location</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
 </resources>

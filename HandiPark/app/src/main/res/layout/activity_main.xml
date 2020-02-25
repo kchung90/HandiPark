@@ -18,10 +18,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/border_background"
+            android:background="@drawable/small_button"
             android:text="@string/login"
             android:textAllCaps="false"
             android:layout_marginEnd="5dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
             android:textSize="12sp" />
 
         <Button
@@ -30,10 +32,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/border_background"
+            android:background="@drawable/small_button"
             android:text="@string/signup"
             android:textAllCaps="false"
-            android:layout_marginEnd="5dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
             android:textSize="12sp" />
     </LinearLayout>
 

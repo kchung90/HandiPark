@@ -63,16 +63,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
         list.setAdapter(adapter);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editsearch = (SearchView) findViewById(R.id.search);
-                editsearch.setVisibility(View.VISIBLE);
-                editsearch.setOnQueryTextListener(Main2Activity.this);
-            }
-        });
+        editsearch = (SearchView) findViewById(R.id.search);
+        editsearch.setOnQueryTextListener(Main2Activity.this);
     }
 
     @Override

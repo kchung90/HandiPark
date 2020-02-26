@@ -13,26 +13,22 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:minHeight="?actionBarSize"
-                android:padding="@dimen/appbar_padding"
-                android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true">
 
             <SearchView
                 android:id="@+id/search"
-                android:layout_width="wrap_content"
+                android:searchIcon="@drawable/search_black"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 android:layout_marginTop="5dp"
-                android:gravity="end"
-                android:iconifiedByDefault="false" />
+                android:layout_marginStart="15dp"
+                android:elevation="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="5dp"
+                android:theme="@style/SearchViewStyle"
+                android:background="#fefefe"
+                android:iconifiedByDefault="false"/>
         </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout
@@ -47,14 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/search" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

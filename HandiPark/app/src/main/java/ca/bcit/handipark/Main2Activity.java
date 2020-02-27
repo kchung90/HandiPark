@@ -13,8 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import androidx.appcompat.widget.Toolbar;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
@@ -77,6 +75,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
             list.setVisibility(View.VISIBLE);
             adapter.getFilter().filter(query);
         }
+        editsearch.clearFocus();
         return false;
     }
 

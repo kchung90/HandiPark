@@ -18,11 +18,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.bcit.handipark.Main2Activity;
 import ca.bcit.handipark.R;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -59,35 +65,54 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main2, container, false);
-//        final TextView textView = root.findViewById(R.id.section_label);
-//        pageViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
         listBody = (ListView) root.findViewById(R.id.listViewBody);
 
-        try {
-            JSONObject json = new JSONObject(testJSON);
-            JSONArray jsonArray = json.getJSONArray("fields");
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://opendata.vancouver.ca/api/records/1.0/search/?dataset=disability-parking&facet=description&facet=notes&facet=geo_local_area";
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
 
-            ArrayList<String> arrayList = new ArrayList<>();
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject child = jsonArray.getJSONObject(i);
-                arrayList.add(child.getString("location"));
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
             }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
 
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
-            listBody.setAdapter(arrayAdapter);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject json = new JSONObject(myResponse);
+                                JSONArray jsonArray = json.getJSONArray("records");
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                                ArrayList<String> arrayList = new ArrayList<>();
 
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject record = jsonArray.getJSONObject(i);
+                                    JSONObject fields = record.getJSONObject("fields");
+
+                                    arrayList.add(fields.toString());
+                                }
+
+
+                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+                                listBody.setAdapter(arrayAdapter);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
         return root;
     }

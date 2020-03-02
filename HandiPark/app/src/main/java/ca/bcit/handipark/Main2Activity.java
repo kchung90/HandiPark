@@ -63,6 +63,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
         editsearch = (SearchView) findViewById(R.id.search);
         editsearch.setOnQueryTextListener(Main2Activity.this);
+
     }
 
     @Override

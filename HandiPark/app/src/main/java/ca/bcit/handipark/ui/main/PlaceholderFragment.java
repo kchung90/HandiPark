@@ -31,7 +31,7 @@ public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     ListView listBody;
-    String testJSON = "{\"fields\": {\"description\": \"Designated meter parking space\", \"notes\": \"No stopping accessible zone\", \"spaces\": 1, \"geom\": {\"type\": \"Point\", \"coordinates\": [-123.069865, 49.27218]}, \"location\": \"North Side 1600 Kitchener St\", \"geo_local_area\": \"Grandview-Woodland\"}}";
+    String testJSON = "{\"fields\": [{\"description\": \"Designated meter parking space\", \"notes\": \"No stopping accessible zone\", \"spaces\": 1, \"geom\": {\"type\": \"Point\", \"coordinates\": [-123.069865, 49.27218]}, \"location\": \"North Side 1600 Kitchener St\", \"geo_local_area\": \"Grandview-Woodland\"}, {\"description\": \"Designated meter parking space\", \"notes\": \"No stopping accessible zone\", \"spaces\": 1, \"geom\": {\"type\": \"Point\", \"coordinates\": [-123.101146, 49.262189]}, \"location\": \"West Side  2500 Main St\", \"geo_local_area\": \"Mount Pleasant\"}, {\"description\": \"Designated meter parking space\", \"notes\": \"No stopping accessible zone\", \"spaces\": 1, \"geom\": {\"type\": \"Point\", \"coordinates\": [-123.161686, 49.234602]}, \"location\": \"South Side 2400 W 41st Av\", \"geo_local_area\": \"Arbutus-Ridge\"}]}";
 
     private PageViewModel pageViewModel;
 
@@ -71,11 +71,14 @@ public class PlaceholderFragment extends Fragment {
 
         try {
             JSONObject json = new JSONObject(testJSON);
-            JSONObject childObject = json.getJSONObject("fields");
-            String testString = childObject.getString("location");
+            JSONArray jsonArray = json.getJSONArray("fields");
 
             ArrayList<String> arrayList = new ArrayList<>();
-            arrayList.add(testString);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject child = jsonArray.getJSONObject(i);
+                arrayList.add(child.getString("location"));
+            }
 
 
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);

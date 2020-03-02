@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,6 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ca.bcit.handipark.Main2Activity;
 import ca.bcit.handipark.R;
 
 /**
@@ -20,6 +30,8 @@ import ca.bcit.handipark.R;
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    ListView listBody;
+    String testJSON = "{\"fields\": {\"description\": \"Designated meter parking space\", \"notes\": \"No stopping accessible zone\", \"spaces\": 1, \"geom\": {\"type\": \"Point\", \"coordinates\": [-123.069865, 49.27218]}, \"location\": \"North Side 1600 Kitchener St\", \"geo_local_area\": \"Grandview-Woodland\"}}";
 
     private PageViewModel pageViewModel;
 
@@ -47,13 +59,33 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main2, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        final TextView textView = root.findViewById(R.id.section_label);
+//        pageViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
+
+        listBody = (ListView) root.findViewById(R.id.listViewBody);
+
+        try {
+            JSONObject json = new JSONObject(testJSON);
+            JSONObject childObject = json.getJSONObject("fields");
+            String testString = childObject.getString("location");
+
+            ArrayList<String> arrayList = new ArrayList<>();
+            arrayList.add(testString);
+
+
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+            listBody.setAdapter(arrayAdapter);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         return root;
     }
 }

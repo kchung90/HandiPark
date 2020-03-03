@@ -21,6 +21,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.android.libraries.places:places:2.2.0'
     implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.13.+'
     implementation 'com.amazonaws:aws-android-sdk-auth-userpools:2.13.+'
     implementation 'com.amazonaws:aws-android-sdk-auth-ui:2.13.+'

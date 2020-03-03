@@ -1,14 +1,23 @@
 package ca.bcit.handipark;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,6 +25,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -31,10 +41,12 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     ViewPager viewPager;
     public static final String LONG = "longitude";
     public static final String LAT = "latitude";
+    private static final String TAG = "PlacesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setContentView(R.layout.activity_main2);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         viewPager = findViewById(R.id.view_pager);
@@ -62,21 +74,53 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
             );
             Toast.makeText(Main2Activity.this, message, Toast.LENGTH_LONG).show();
 
-        animalNameList = new String[]{"Lion", "Tiger", "Dog",
-                "Cat", "Tortoise", "Rat", "Elephant", "Fox",
-                "Cow","Donkey","Monkey"};
+        String apiKey = getString(R.string.api_key);
 
-        list = (ListView) findViewById(R.id.listview);
-        list.setVisibility(View.INVISIBLE);
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), apiKey);
+        }
 
-        Collections.addAll(arraylist, animalNameList);
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
-        adapter = new ArrayAdapter<>(Main2Activity.this, android.R.layout.simple_selectable_list_item, arraylist);
+        assert autocompleteFragment != null;
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
 
-        list.setAdapter(adapter);
+        Objects.requireNonNull(autocompleteFragment.getView()).setElevation(10);
+        Objects.requireNonNull(autocompleteFragment.getView()).setBackgroundColor(Color.WHITE);
 
-        editsearch = (SearchView) findViewById(R.id.search);
-        editsearch.setOnQueryTextListener(Main2Activity.this);
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getLatLng() + ", " + place.getAddress());
+                String message = String.format(
+                        "New Location \n Longitude: %1$s \n Latitude: %2$s",
+                        Objects.requireNonNull(place.getLatLng()).longitude, place.getLatLng().latitude
+                );
+                Toast.makeText(Main2Activity.this, message, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
+//        animalNameList = new String[]{"Lion", "Tiger", "Dog",
+//                "Cat", "Tortoise", "Rat", "Elephant", "Fox",
+//                "Cow","Donkey","Monkey"};
+//
+//        list = (ListView) findViewById(R.id.listview);
+//        list.setVisibility(View.INVISIBLE);
+//
+//        Collections.addAll(arraylist, animalNameList);
+//
+//        adapter = new ArrayAdapter<>(Main2Activity.this, android.R.layout.simple_selectable_list_item, arraylist);
+//
+//        list.setAdapter(adapter);
+//
+//        editsearch = (SearchView) findViewById(R.id.search);
+//        editsearch.setOnQueryTextListener(Main2Activity.this);
 
     }
 

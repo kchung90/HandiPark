@@ -54,20 +54,12 @@
         android:layout_marginTop="150dp"
         />
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        app:queryHint="@string/search"
-        app:iconifiedByDefault="false"
-        android:focusable="false"
-    />
-
     <fragment android:id="@+id/autocomplete_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
         android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
         />
 

@@ -17,9 +17,7 @@
             android:layout_height="match_parent"
             android:focusableInTouchMode="true">
 
-            <SearchView
-                android:id="@+id/search"
-                android:searchIcon="@drawable/search_black"
+            <fragment android:id="@+id/autocomplete_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -27,9 +25,24 @@
                 android:elevation="10dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="5dp"
-                android:theme="@style/SearchViewStyle"
-                android:background="#fefefe"
-                android:iconifiedByDefault="false"/>
+                android:layout_gravity="center"
+                android:iconifiedByDefault="false"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                />
+<!--            <SearchView-->
+<!--                android:id="@+id/search"-->
+<!--                android:searchIcon="@drawable/search_black"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:elevation="10dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:theme="@style/SearchViewStyle"-->
+<!--                android:background="#fefefe"-->
+<!--                android:iconifiedByDefault="false"/>-->
+
         </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout

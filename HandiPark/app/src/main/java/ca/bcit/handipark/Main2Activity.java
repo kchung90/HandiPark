@@ -1,5 +1,6 @@
 package ca.bcit.handipark;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +29,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     String[] animalNameList;
     ArrayList<String> arraylist = new ArrayList<>();
     ViewPager viewPager;
+    public static final String LONG = "longitude";
+    public static final String LAT = "latitude";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,16 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
                 Objects.requireNonNull(tabs.getTabAt(i)).setIcon(tabIcons[i]);
             }
         }
+
+        Intent intent = getIntent();
+        String longitude = intent.getStringExtra(LONG);
+        String latitude = intent.getStringExtra(LAT);
+
+        String message = String.format(
+                    "New Location \n Longitude: %1$s \n Latitude: %2$s",
+                longitude, latitude
+            );
+            Toast.makeText(Main2Activity.this, message, Toast.LENGTH_LONG).show();
 
         animalNameList = new String[]{"Lion", "Tiger", "Dog",
                 "Cat", "Tortoise", "Rat", "Elephant", "Fox",

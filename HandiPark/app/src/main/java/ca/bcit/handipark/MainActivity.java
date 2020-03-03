@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void onClickRegister(View view) {
+        Intent intent = new Intent(this, AuthenticationActivity.class);
+        this.startActivity ( intent );
+    }
+
     public void onClickGetLocation(View view) {
         LocationManager mLocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         LocationListener mLocListener = new MyLocationListener();

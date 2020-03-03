@@ -24,6 +24,7 @@
             android:layout_marginEnd="5dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
+            android:onClick="onClickRegister"
             android:textSize="12sp" />
 
         <Button
@@ -37,6 +38,7 @@
             android:textAllCaps="false"
             android:minHeight="0dp"
             android:minWidth="0dp"
+            android:onClick="onClickRegister"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -62,6 +64,12 @@
         app:iconifiedByDefault="false"
         android:focusable="false"
     />
+
+    <fragment android:id="@+id/autocomplete_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        />
 
     <Button
         android:id="@+id/current_location"

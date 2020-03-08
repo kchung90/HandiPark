@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import ca.bcit.handipark.Fragment1;
+import ca.bcit.handipark.Fragment2;
+import ca.bcit.handipark.Fragment3;
 import ca.bcit.handipark.R;
 
 /**
@@ -16,13 +19,15 @@ import ca.bcit.handipark.R;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+    private int numTabs;
 //    @StringRes
 //    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
-    private final Context mContext;
+//    private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm, int numTabs) {
         super(fm);
-        mContext = context;
+//        this.mContext = context;
+        this.numTabs = numTabs;
     }
 
     @Override
@@ -30,6 +35,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
         return PlaceholderFragment.newInstance(position + 1);
+//        switch (position) {
+//            case 0:
+//                return new Fragment1();
+//            case 1:
+//                return new Fragment2();
+//            case 2:
+//                return new Fragment3();
+//            default:
+//                return null;
+//        }
     }
 
 //    @Nullable

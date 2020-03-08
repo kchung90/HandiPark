@@ -26,10 +26,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
 
-import ca.bcit.handipark.ui.main.SectionsPagerAdapter;
 
 public class Main2Activity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
@@ -48,11 +46,14 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         super.onCreate(savedInstanceState);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setContentView(R.layout.activity_main2);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+
         viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
+        viewPager.setAdapter(myPagerAdapter);
+
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
         int[] tabIcons = {
                 R.drawable.search,
                 R.drawable.favorite,
@@ -63,6 +64,9 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
                 Objects.requireNonNull(tabs.getTabAt(i)).setIcon(tabIcons[i]);
             }
         }
+
+        tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
 
         Intent intent = getIntent();
         String longitude = intent.getStringExtra(LONG);
@@ -86,8 +90,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         assert autocompleteFragment != null;
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
 
-        Objects.requireNonNull(autocompleteFragment.getView()).setElevation(10);
-        Objects.requireNonNull(autocompleteFragment.getView()).setBackgroundColor(Color.WHITE);
+        autocompleteFragment.requireView().setElevation(10);
+        autocompleteFragment.requireView().setBackgroundColor(Color.WHITE);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override

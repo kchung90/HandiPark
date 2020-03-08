@@ -28,6 +28,7 @@
                 android:elevation="10dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="5dp"
+                android:background="#fefefe"
                 android:layout_gravity="center"
                 android:iconifiedByDefault="false"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"

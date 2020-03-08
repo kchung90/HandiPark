@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -12,12 +13,12 @@ import java.util.ArrayList;
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {
     private ArrayList<Card> cardArrayList;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewLocation;
-        public TextView textViewSpace;
-        public TextView textViewNotes;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewLocation;
+        TextView textViewSpace;
+        TextView textViewNotes;
 
-        public ViewHolder(View v) {
+        ViewHolder(View v) {
             super(v);
 
             textViewLocation = (TextView) v.findViewById(R.id.location_name);
@@ -26,10 +27,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         }
     }
 
-    public CardViewAdapter(ArrayList<Card> cards) {
+    CardViewAdapter(ArrayList<Card> cards) {
         cardArrayList = cards;
     }
 
+    @NonNull
     @Override
     public CardViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
@@ -48,26 +50,26 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         return cardArrayList.size();
     }
 
-    public static class Card {
+    static class Card {
         String location;
         int space;
         String notes;
 
-        public Card(String location, int space, String notes) {
+        Card(String location, int space, String notes) {
             this.location = location;
             this.space = space;
             this.notes = notes;
         }
 
-        public String getLocation() {
+        String getLocation() {
             return location;
         }
 
-        public int getSpace() {
+        int getSpace() {
             return space;
         }
 
-        public String getNotes() {
+        String getNotes() {
             return notes;
         }
     }

@@ -1,17 +1,19 @@
 package ca.bcit.handipark;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
-    int mNumOfTabs;
+    private int mNumOfTabs;
 
-    public MyPagerAdapter(FragmentManager fm, int numOfTabs) {
+    MyPagerAdapter(FragmentManager fm, int numOfTabs) {
         super(fm);
         this.mNumOfTabs = numOfTabs;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
 

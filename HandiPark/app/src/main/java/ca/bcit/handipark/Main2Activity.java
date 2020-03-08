@@ -2,7 +2,6 @@ package ca.bcit.handipark;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.gms.common.api.Status;
@@ -10,7 +9,6 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -44,8 +42,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setContentView(R.layout.activity_main2);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         viewPager = findViewById(R.id.view_pager);
         final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
@@ -90,9 +88,6 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         assert autocompleteFragment != null;
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
 
-        autocompleteFragment.requireView().setElevation(10);
-        autocompleteFragment.requireView().setBackgroundColor(Color.WHITE);
-
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
@@ -109,23 +104,6 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-
-//        animalNameList = new String[]{"Lion", "Tiger", "Dog",
-//                "Cat", "Tortoise", "Rat", "Elephant", "Fox",
-//                "Cow","Donkey","Monkey"};
-//
-//        list = (ListView) findViewById(R.id.listview);
-//        list.setVisibility(View.INVISIBLE);
-//
-//        Collections.addAll(arraylist, animalNameList);
-//
-//        adapter = new ArrayAdapter<>(Main2Activity.this, android.R.layout.simple_selectable_list_item, arraylist);
-//
-//        list.setAdapter(adapter);
-//
-//        editsearch = (SearchView) findViewById(R.id.search);
-//        editsearch.setOnQueryTextListener(Main2Activity.this);
-
     }
 
     @Override

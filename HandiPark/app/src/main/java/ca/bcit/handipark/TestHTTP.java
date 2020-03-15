@@ -59,7 +59,7 @@ public class TestHTTP extends AppCompatActivity {
                         public void run() {
                             try {
                                 JSONObject json = new JSONObject(myResponse);
-                                testViewRes.setText(json.toString(4));
+                                testViewRes.setText(json.toString(2));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

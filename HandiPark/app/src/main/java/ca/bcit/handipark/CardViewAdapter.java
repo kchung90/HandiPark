@@ -41,8 +41,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textViewLocation.setText(cardArrayList.get(position).getLocation());
-        holder.textViewSpace.setText(String.valueOf(cardArrayList.get(position).getSpace()));
-        holder.textViewNotes.setText(cardArrayList.get(position).getNotes());
+        String spaces = "Spaces: " + cardArrayList.get(position).getSpace();
+        String notes = "Notes: " + cardArrayList.get(position).getNotes();
+        holder.textViewSpace.setText(spaces);
+        holder.textViewNotes.setText(notes);
     }
 
     @Override

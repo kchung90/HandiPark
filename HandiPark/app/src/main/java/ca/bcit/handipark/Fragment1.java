@@ -67,7 +67,7 @@ public class Fragment1 extends Fragment {
                     assert response.body() != null;
                     final String myResponse = response.body().string();
 
-                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                    requireActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {

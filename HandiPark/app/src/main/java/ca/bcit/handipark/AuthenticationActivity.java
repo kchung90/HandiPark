@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 switch (userStateDetails.getUserState()){
                     case SIGNED_IN:
                         Intent i = new Intent(AuthenticationActivity.this, MainActivity.class);
+                        i.putExtra(MainActivity.TOAST, "You are already signed in");
                         startActivity(i);
                         break;
                     case SIGNED_OUT:

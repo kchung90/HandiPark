@@ -15,6 +15,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION
     };
 
+    public static final String TOAST = "toast";
     private static final String TAG = "PlacesActivity";
 
     @Override
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
+
+        Intent i = getIntent();
+        String toast = i.getStringExtra(TOAST);
+        if (toast != null) {
+            Toast.makeText(MainActivity.this,
+                    toast, Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onClickRegister(View view) {

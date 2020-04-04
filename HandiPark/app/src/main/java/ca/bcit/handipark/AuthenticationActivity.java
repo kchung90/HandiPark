@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,9 @@ public class AuthenticationActivity extends AppCompatActivity {
 
             @Override
             public void onResult(UserStateDetails userStateDetails) {
-                Log.i(TAG, userStateDetails.getUserState().toString());
+
+                AWSMobileClient.getInstance().signOut();
+                Log.i(TAG, "WTF" + userStateDetails.getUserState().toString());
                 switch (userStateDetails.getUserState()){
                     case SIGNED_IN:
                         Intent i = new Intent(AuthenticationActivity.this, MainActivity.class);

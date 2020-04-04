@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "handipark5f34dbe0_identitypool_5f34dbe0",
+    "identityPoolName": "handipark63abf206_identitypool_63abf206",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "handip5f34dbe0",
-    "userPoolName": "handipark5f34dbe0_userpool_5f34dbe0",
+    "resourceNameTruncated": "handip63abf206",
+    "userPoolName": "handipark63abf206_userpool_63abf206",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,9 +28,9 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "handip5f34dbe0_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "handip63abf206_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "resourceName": "handipark5f34dbe0",
+    "resourceName": "handipark63abf206",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [

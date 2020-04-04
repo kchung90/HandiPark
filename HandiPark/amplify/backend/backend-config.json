@@ -1,6 +1,6 @@
 {
 	"auth": {
-		"handipark5f34dbe0": {
+		"handipark63abf206": {
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [],

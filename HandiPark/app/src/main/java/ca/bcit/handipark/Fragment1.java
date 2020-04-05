@@ -1,5 +1,6 @@
 package ca.bcit.handipark;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 
 import ca.bcit.handipark.ui.main.PageViewModel;
@@ -86,7 +89,20 @@ public class Fragment1 extends Fragment {
                                     double longitude = coordinates.getDouble(0);
                                     double latitude = coordinates.getDouble(1);
 
-                                    cardArrayList.add(new CardViewAdapter.Card(location, space, notes, longitude, latitude));
+                                    double userLongitude = Double.parseDouble(Main2Activity.longitude);
+                                    double userLatitude = Double.parseDouble(Main2Activity.latitude);
+
+                                    Location destination = new Location("");
+                                    destination.setLongitude(userLongitude);
+                                    destination.setLatitude(userLatitude);
+
+                                    Location startLocation = new Location("");
+                                    startLocation.setLongitude(longitude);
+                                    startLocation.setLatitude(latitude);
+                                    double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
+
+                                    cardArrayList.add(new CardViewAdapter.Card(location, space, notes, distance));
+                                    Collections.sort(cardArrayList);
                                 }
 
                                 adapter = new CardViewAdapter(cardArrayList);

@@ -46,19 +46,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-        double userLongitude = Double.parseDouble(Main2Activity.longitude);
-        double userLatitude = Double.parseDouble(Main2Activity.latitude);
-
-        Location destination = new Location("");
-        destination.setLongitude(userLongitude);
-        destination.setLatitude(userLatitude);
-
-        Location startLocation = new Location("");
-        startLocation.setLongitude(cardArrayList.get(position).getLongitude());
-        startLocation.setLatitude(cardArrayList.get(position).getLatitude());
-        double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
-        double distanceRounded = Math.round(distance * 10.0) / 10.0;
+        double distanceRounded = Math.round((cardArrayList.get(position).getDistance()) * 10.0) / 10.0;
 
         holder.textViewLocation.setText(cardArrayList.get(position).getLocation());
         String spaces = "Spaces: " + cardArrayList.get(position).getSpace();
@@ -74,19 +62,17 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         return cardArrayList.size();
     }
 
-    static class Card {
+    static class Card implements Comparable<Card> {
         String location;
         int space;
         String notes;
-        double longitude;
-        double latitude;
+        double distance;
 
-        Card(String location, int space, String notes, double longitude, double latitude) {
+        Card(String location, int space, String notes, double distance) {
             this.location = location;
             this.space = space;
             this.notes = notes;
-            this.longitude = longitude;
-            this.latitude = latitude;
+            this.distance = distance;
         }
 
         String getLocation() {
@@ -101,12 +87,19 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             return notes;
         }
 
-        double getLongitude() {
-            return longitude;
+        double getDistance() {
+            return distance;
         }
 
-        double getLatitude() {
-            return latitude;
+        @Override
+        public int compareTo(Card o) {
+            if (distance > o.getDistance()) {
+                return 1;
+            } else if (distance < o.getDistance()) {
+                return -1;
+            } else {
+                return 0;
+            }
         }
     }
 }

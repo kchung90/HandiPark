@@ -26,6 +26,21 @@
             android:minWidth="0dp"
             android:onClick="onClickRegister"
             android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/signout"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/small_button"
+            android:text="@string/signout"
+            android:textAllCaps="false"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:visibility="gone"
+            android:onClick="onClickSignOut"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <TextView

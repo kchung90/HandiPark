@@ -15,6 +15,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.Places;
@@ -22,6 +23,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -38,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setContentView(R.layout.activity_main);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            findViewById(R.id.signup).setVisibility(View.VISIBLE);
+            findViewById(R.id.signout).setVisibility(View.GONE);
+        } else{
+            findViewById(R.id.signup).setVisibility(View.GONE);
+            findViewById(R.id.signout).setVisibility(View.VISIBLE);
+        }
 
         String apiKey = getString(R.string.api_key);
 
@@ -70,8 +80,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickRegister(View view) {
-        Intent intent = new Intent(this, AuthenticationActivity.class);
+        Intent intent = new Intent(this, FirebaseUIActivity.class);
         this.startActivity ( intent );
+
+        findViewById(R.id.signup).setVisibility(View.GONE);
+        findViewById(R.id.signout).setVisibility(View.VISIBLE);
+    }
+
+    public void onClickSignOut(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(MainActivity.this, "Successfully Signed Out",
+                Toast.LENGTH_LONG).show();
+
+        findViewById(R.id.signup).setVisibility(View.VISIBLE);
+        findViewById(R.id.signout).setVisibility(View.GONE);
     }
 
     public void onClickGetLocation(View view) {

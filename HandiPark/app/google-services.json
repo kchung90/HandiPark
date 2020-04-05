@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1060431037677",
+    "firebase_url": "https://handipark-f0a80.firebaseio.com",
+    "project_id": "handipark-f0a80",
+    "storage_bucket": "handipark-f0a80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060431037677:android:4f8c05e4a9cc7a85a2f8e4",
+        "android_client_info": {
+          "package_name": "ca.bcit.handipark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060431037677-q3r4li13eckehbnrq8dknpgit2ohreir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl8Vqk0fx5asUzwmN1Lh9xT1ngoN8cchg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060431037677-q3r4li13eckehbnrq8dknpgit2ohreir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -32,16 +32,22 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"/>
 
-                <ImageButton
+                <CheckBox
                     android:id="@+id/fav_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="0dp"
-                    android:background="@drawable/star_border"/>
+                    android:button="@drawable/fav_button"/>
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/distance"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/space_availability"
                 android:layout_marginTop="20dp"

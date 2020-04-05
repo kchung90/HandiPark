@@ -6,23 +6,5 @@
 			"dependsOn": [],
 			"customAuth": false
 		}
-	},
-	"api": {
-		"handipark": {
-			"service": "AppSync",
-			"providerPlugin": "awscloudformation",
-			"output": {
-				"authConfig": {
-					"additionalAuthenticationProviders": [],
-					"defaultAuthentication": {
-						"authenticationType": "API_KEY",
-						"apiKeyConfig": {
-							"description": "handiparkapi",
-							"apiKeyExpirationDays": "60"
-						}
-					}
-				}
-			}
-		}
 	}
 }

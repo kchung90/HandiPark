@@ -1,7 +1,0 @@
-type Spot @model {
-	id: ID!
-	address: String!
-	spaces: Int!
-	coordinates: [Float!]!
-	notes: String 
-}

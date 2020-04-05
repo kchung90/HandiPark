@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;

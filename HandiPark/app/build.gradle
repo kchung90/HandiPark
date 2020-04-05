@@ -42,4 +42,6 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.amplifyframework:core:0.10.0'
+    implementation 'com.amplifyframework:aws-api:0.10.0'
 }

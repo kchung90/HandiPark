@@ -35,6 +35,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     String[] animalNameList;
     ArrayList<String> arraylist = new ArrayList<>();
     ViewPager viewPager;
+    public static String longitude;
+    public static String latitude;
     public static final String LONG = "longitude";
     public static final String LAT = "latitude";
     private static final String TAG = "PlacesActivity";
@@ -67,8 +69,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
 
         Intent intent = getIntent();
-        String longitude = intent.getStringExtra(LONG);
-        String latitude = intent.getStringExtra(LAT);
+        this.longitude = intent.getStringExtra(LONG);
+        this.latitude = intent.getStringExtra(LAT);
 
         String message = String.format(
                     "New Location \n Longitude: %1$s \n Latitude: %2$s",

@@ -15,10 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {
-    private static final String LONG = "-123.0";
-    private static final String LAT = "49.249999";
     private ArrayList<Card> cardArrayList;
-    private Context context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewLocation;
@@ -44,27 +41,23 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     @Override
     public CardViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
-        context = v.getContext();
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        Intent intent = ((Activity) context).getIntent();
-//        String longitude = intent.getStringExtra(LONG);
-//        String latitude = intent.getStringExtra(LAT);
 
-        double userLongitude = Double.parseDouble(LONG);
-        double userLatitude = Double.parseDouble(LAT);
+        double userLongitude = Double.parseDouble(Main2Activity.longitude);
+        double userLatitude = Double.parseDouble(Main2Activity.latitude);
 
-        Location loc1 = new Location("");
-        loc1.setLongitude(userLongitude);
-        loc1.setLatitude(userLatitude);
+        Location destination = new Location("");
+        destination.setLongitude(userLongitude);
+        destination.setLatitude(userLatitude);
 
-        Location loc2 = new Location("");
-        loc2.setLongitude(cardArrayList.get(position).getLongitude());
-        loc2.setLatitude(cardArrayList.get(position).getLatitude());
-        double distance = (double) ((loc2.distanceTo(loc1)) / 1000);
+        Location startLocation = new Location("");
+        startLocation.setLongitude(cardArrayList.get(position).getLongitude());
+        startLocation.setLatitude(cardArrayList.get(position).getLatitude());
+        double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
         double distanceRounded = Math.round(distance * 10.0) / 10.0;
 
         holder.textViewLocation.setText(cardArrayList.get(position).getLocation());

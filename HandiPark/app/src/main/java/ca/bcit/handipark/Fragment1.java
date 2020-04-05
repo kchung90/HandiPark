@@ -80,7 +80,13 @@ public class Fragment1 extends Fragment {
                                     String location = fields.getString("location");
                                     int space = fields.getInt("spaces");
                                     String notes = fields.getString("notes");
-                                    cardArrayList.add(new CardViewAdapter.Card(location, space, notes));
+
+                                    JSONObject geom = fields.getJSONObject("geom");
+                                    JSONArray coordinates = geom.getJSONArray("coordinates");
+                                    double longitude = coordinates.getDouble(0);
+                                    double latitude = coordinates.getDouble(1);
+
+                                    cardArrayList.add(new CardViewAdapter.Card(location, space, notes, longitude, latitude));
                                 }
 
                                 adapter = new CardViewAdapter(cardArrayList);

@@ -1,5 +1,6 @@
 package ca.bcit.handipark;
 
+import android.Manifest;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Fragment3 extends Fragment {
     private MapView mMapView;
     private GoogleMap googleMap;
+
+    private static final String[] LOCATION_PERMS = {
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

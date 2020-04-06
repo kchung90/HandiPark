@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,8 +101,18 @@ public class Fragment1 extends Fragment {
                                     startLocation.setLatitude(latitude);
                                     double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
 
-                                    cardArrayList.add(new CardViewAdapter.Card(location, space, notes, distance));
+                                    CardViewAdapter.Card card1 = new CardViewAdapter.Card(location, space, notes, distance);
+
+                                    if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference user = database.getReference(FirebaseAuth.getInstance().getUid());
+
+                                        user.child("favorites").setValue(card1);
+                                        user.child("history").setValue(card1);
+                                    }
+                                    cardArrayList.add(card1);
                                     Collections.sort(cardArrayList);
+
                                 }
 
                                 adapter = new CardViewAdapter(cardArrayList);

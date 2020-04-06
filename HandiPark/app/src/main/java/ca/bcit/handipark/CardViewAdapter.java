@@ -1,27 +1,34 @@
 package ca.bcit.handipark;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.location.Location;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {
     private ArrayList<Card> cardArrayList;
+    public static ArrayList<Card> selectedCardArrayList = new ArrayList<>();
+    public static String cardLocation;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewLocation;
         TextView textViewSpace;
         TextView textViewNotes;
         TextView textViewDistance;
+        CheckBox favSelected;
 
         ViewHolder(View v) {
             super(v);
@@ -30,6 +37,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             textViewSpace = (TextView) v.findViewById(R.id.space_availability);
             textViewNotes = (TextView) v.findViewById(R.id.notes);
             textViewDistance = (TextView) v.findViewById(R.id.distance);
+            favSelected = (CheckBox) v.findViewById(R.id.fav_button);
         }
     }
 
@@ -45,7 +53,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         double distanceRounded = Math.round((cardArrayList.get(position).getDistance()) * 10.0) / 10.0;
 
         holder.textViewLocation.setText(cardArrayList.get(position).getLocation());
@@ -55,6 +63,38 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         holder.textViewSpace.setText(spaces);
         holder.textViewNotes.setText(notes);
         holder.textViewDistance.setText(dist);
+        holder.favSelected.setChecked(cardArrayList.get(position).getSelected());
+        holder.favSelected.setTag(cardArrayList.get(position));
+
+        holder.favSelected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox cb = (CheckBox) v;
+                Card card = (Card) cb.getTag();
+
+                card.setSelected(cb.isChecked());
+                cardArrayList.get(position).setSelected(cb.isSelected());
+                cardLocation = card.getLocation();
+
+//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                    DatabaseReference favorites = database.getReference(FirebaseAuth.getInstance().getUid() + "/favorites");
+//
+//                    favorites.setValue(card.getLocation());
+//                }
+
+//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                    DatabaseReference user = database.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
+//
+//                    FirebaseDatabase.getInstance().getReference()
+//                    user.child("favorites").setValue(card1);
+//                    user.child("history").setValue(card1);
+//                }
+
+                Toast.makeText(v.getContext(), "You clicked " + cardLocation + " Status:" + cb.isChecked(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -67,12 +107,14 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         int space;
         String notes;
         double distance;
+        boolean isSelected;
 
-        Card(String location, int space, String notes, double distance) {
+        Card(String location, int space, String notes, double distance, boolean isSelected) {
             this.location = location;
             this.space = space;
             this.notes = notes;
             this.distance = distance;
+            this.isSelected = isSelected;
         }
 
         String getLocation() {
@@ -89,6 +131,14 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
         double getDistance() {
             return distance;
+        }
+
+        boolean getSelected() {
+            return isSelected;
+        }
+
+        void setSelected(boolean isSelected) {
+            this.isSelected = isSelected;
         }
 
         @Override

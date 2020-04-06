@@ -46,4 +46,6 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.firebase:firebase-ui:0.1.0'
+    implementation 'com.google.firebase:firebase-database:19.2.1'
 }

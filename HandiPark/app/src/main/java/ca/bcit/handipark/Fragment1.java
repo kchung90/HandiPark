@@ -12,16 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import okhttp3.Call;
@@ -85,32 +82,28 @@ public class Fragment1 extends Fragment {
                                     String notes = fields.getString("notes");
 
                                     JSONObject geom = fields.getJSONObject("geom");
-                                    JSONArray coordinates = geom.getJSONArray("coordinates");
-                                    double longitude = coordinates.getDouble(0);
-                                    double latitude = coordinates.getDouble(1);
+                                    JSONArray geomJSONCoords = geom.getJSONArray("coordinates");
+                                    double longitude = geomJSONCoords.getDouble(0);
+                                    double latitude = geomJSONCoords.getDouble(1);
+
+                                    ArrayList<Double> coordinates = new ArrayList<Double>(Arrays.asList(longitude, latitude));
+//                                    double[] coordinates = new double[]{longitude, latitude};
 
                                     double userLongitude = Double.parseDouble(Main2Activity.longitude);
                                     double userLatitude = Double.parseDouble(Main2Activity.latitude);
 
-                                    Location destination = new Location("");
-                                    destination.setLongitude(userLongitude);
-                                    destination.setLatitude(userLatitude);
-
                                     Location startLocation = new Location("");
-                                    startLocation.setLongitude(longitude);
-                                    startLocation.setLatitude(latitude);
+                                    startLocation.setLongitude(userLongitude);
+                                    startLocation.setLatitude(userLatitude);
+
+                                    Location destination = new Location("");
+                                    destination.setLongitude(longitude);
+                                    destination.setLatitude(latitude);
                                     double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
 
-                                    CardViewAdapter.Card card1 = new CardViewAdapter.Card(location, space, notes, distance);
+                                    CardViewAdapter.Card card = new CardViewAdapter.Card(location, space, notes, distance, coordinates, false);
 
-                                    if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        DatabaseReference user = database.getReference(FirebaseAuth.getInstance().getUid());
-
-                                        user.child("favorites").setValue(card1);
-                                        user.child("history").setValue(card1);
-                                    }
-                                    cardArrayList.add(card1);
+                                    cardArrayList.add(card);
                                     Collections.sort(cardArrayList);
 
                                 }

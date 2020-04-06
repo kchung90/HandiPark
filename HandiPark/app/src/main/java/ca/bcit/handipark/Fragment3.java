@@ -49,7 +49,7 @@ public class Fragment3 extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 CardViewAdapter.Card card = dataSnapshot.getValue(CardViewAdapter.Card.class);
-                cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance, false));
+                cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance, card.coordinates,false));
                 Collections.sort(cardArrayList);
                 adapter = new CardViewAdapter(cardArrayList);
                 recyclerView.setAdapter(adapter);

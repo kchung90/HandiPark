@@ -1,5 +1,6 @@
 package ca.bcit.handipark;
 
+import android.location.Location;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,6 @@ import java.util.Objects;
 
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {
     private ArrayList<Card> cardArrayList;
-    public static ArrayList<Card> selectedCardArrayList = new ArrayList<>();
-    public static String cardLocation;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewLocation;
@@ -54,7 +53,24 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        double distanceRounded = Math.round((cardArrayList.get(position).getDistance()) * 10.0) / 10.0;
+        double userLongitude = Double.parseDouble(Main2Activity.longitude);
+        double userLatitude = Double.parseDouble(Main2Activity.latitude);
+
+        Location startLocation = new Location("");
+        startLocation.setLongitude(userLongitude);
+        startLocation.setLatitude(userLatitude);
+
+        Location destination = new Location("");
+        destination.setLongitude(cardArrayList.get(position).getCoordinates().get(0));
+        destination.setLatitude(cardArrayList.get(position).getCoordinates().get(1));
+
+        double distance = (double) ((destination.distanceTo(startLocation)) / 1000);
+        double distanceRounded = Math.round(distance * 10.0) / 10.0;
+
+//        String key = "";
+//        for (int i = 0; i < cardArrayList.get(position).getCoordinates().size(); i++) {
+//            key += cardArrayList.get(position).getCoordinates().get(i);
+//        }
 
         holder.textViewLocation.setText(cardArrayList.get(position).getLocation());
         String spaces = "Spaces: " + cardArrayList.get(position).getSpace();
@@ -74,16 +90,15 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
                 card.setSelected(cb.isChecked());
                 cardArrayList.get(position).setSelected(cb.isChecked());
-                cardLocation = card.getLocation();
 
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference user = database.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
 
-                    user.child("favorites").setValue(cardArrayList.get(position));
+                    user.child("favorites").child(cardArrayList.get(position).getLocation()).setValue(cardArrayList.get(position));
                 }
 
-                Toast.makeText(v.getContext(), "You have saved " + cardLocation + " in your favorites.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "You have saved " + cardArrayList.get(position).getLocation() + " in your favorites.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -98,17 +113,19 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         public int space;
         public String notes;
         public double distance;
+        public ArrayList<Double> coordinates;
         public boolean isSelected;
 
         public Card() {
 
         }
 
-        Card(String location, int space, String notes, double distance, boolean isSelected) {
+        Card(String location, int space, String notes, double distance, ArrayList<Double> coordinates, boolean isSelected) {
             this.location = location;
             this.space = space;
             this.notes = notes;
             this.distance = distance;
+            this.coordinates = coordinates;
             this.isSelected = isSelected;
         }
 
@@ -126,6 +143,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
         double getDistance() {
             return distance;
+        }
+
+        ArrayList<Double> getCoordinates() {
+            return coordinates;
         }
 
         boolean getSelected() {

@@ -48,9 +48,16 @@ public class Fragment2 extends Fragment {
         favRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                CardViewAdapter.Card card = dataSnapshot.getValue(CardViewAdapter.Card.class);
-                cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance, card.coordinates, card.isSelected));
-                Collections.sort(cardArrayList);
+                cardArrayList.clear();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    CardViewAdapter.Card card = snapshot.getValue(CardViewAdapter.Card.class);
+
+                    if (card.isSelected) {
+                        cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance, card.coordinates, card.isSelected));
+                    }
+                }
+
                 adapter = new CardViewAdapter(cardArrayList);
                 recyclerView.setAdapter(adapter);
             }

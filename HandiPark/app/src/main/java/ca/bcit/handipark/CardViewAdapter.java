@@ -100,6 +100,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         public double distance;
         public boolean isSelected;
 
+        public Card() {
+
+        }
+
         Card(String location, int space, String notes, double distance, boolean isSelected) {
             this.location = location;
             this.space = space;

@@ -1,19 +1,17 @@
 package ca.bcit.handipark;
 
 import android.location.Location;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.MapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,7 +59,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         double userLongitude = Double.parseDouble(Main2Activity.longitude);
         double userLatitude = Double.parseDouble(Main2Activity.latitude);
 
@@ -69,12 +67,12 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         startLocation.setLongitude(userLongitude);
         startLocation.setLatitude(userLatitude);
 
-        Location destination = new Location("");
+        final Location destination = new Location("");
         destination.setLongitude(cardArrayList.get(position).getCoordinates().get(0));
         destination.setLatitude(cardArrayList.get(position).getCoordinates().get(1));
 
-        double distance = (double) ((destination.distanceTo(startLocation)) / 1000);
-        double distanceRounded = Math.round(distance * 10.0) / 10.0;
+        final double distance = (double) ((destination.distanceTo(startLocation)) / 1000);
+        final double distanceRounded = Math.round(distance * 10.0) / 10.0;
 
         holder.textViewLocation.setText(cardArrayList.get(position).getLocation());
         String spaces = "Spaces: " + cardArrayList.get(position).getSpace();
@@ -103,6 +101,16 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 //                }
 //            }
 //        });
+
+        holder.buttonDirections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Main2Activity.longitude = "" + destination.getLongitude();
+                Main2Activity.latitude = "" + destination.getLatitude();
+                Main2Activity.title = cardArrayList.get(position).getLocation();
+                Main2Activity.snippet = "" + distanceRounded + " km away";
+            }
+        });
 
         holder.buttonAddFav.setOnClickListener(new View.OnClickListener() {
             @Override

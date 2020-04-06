@@ -66,10 +66,10 @@ public class Fragment3 extends Fragment {
 
                 // For dropping a marker at a point on the Map
                 LatLng cLoc = new LatLng(latitudeMap, longitudeMap);
-                googleMap.addMarker(new MarkerOptions().position(cLoc).title("Current Location").snippet("You are here"));
+                googleMap.addMarker(new MarkerOptions().position(cLoc).title(Main2Activity.title).snippet(Main2Activity.snippet));
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(cLoc).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(cLoc).zoom(15).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });

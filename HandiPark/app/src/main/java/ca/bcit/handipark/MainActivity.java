@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                 intent.putExtra(Main2Activity.LONG, "" + Objects.requireNonNull(place.getLatLng()).longitude);
                 intent.putExtra(Main2Activity.LAT, "" + place.getLatLng().latitude);
+                intent.putExtra(Main2Activity.title, "" + place.getAddress());
                 startActivity(intent);
             }
 
@@ -117,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
             intent.putExtra(Main2Activity.LONG, "" + loc.getLongitude());
             intent.putExtra(Main2Activity.LAT, "" + loc.getLatitude());
+            intent.putExtra(Main2Activity.title, "Current Location");
+            intent.putExtra(Main2Activity.snippet, "You are here");
             startActivity(intent);
         }
         public void onProviderDisabled(String arg0) {

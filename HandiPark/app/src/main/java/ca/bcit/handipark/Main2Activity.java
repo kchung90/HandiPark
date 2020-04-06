@@ -12,6 +12,8 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +34,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     SearchView editsearch;
     ArrayAdapter<String> adapter;
     ViewPager viewPager;
+    public static String title;
+    public static String snippet;
     public static String longitude;
     public static String latitude;
     public static final String LONG = "longitude";
@@ -115,7 +119,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if(newText.length() < 1){
+        if (newText.length() < 1) {
             viewPager.setVisibility(View.VISIBLE);
             list.setVisibility(View.INVISIBLE);
         } else {

@@ -21,6 +21,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Fragment3 extends Fragment {
     private MapView mMapView;
     private GoogleMap googleMap;
+    public static String longitude;
+    public static String latitude;
 
     private static final String[] LOCATION_PERMS = {
             Manifest.permission.ACCESS_FINE_LOCATION

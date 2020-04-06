@@ -1,5 +1,6 @@
 package ca.bcit.handipark;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 

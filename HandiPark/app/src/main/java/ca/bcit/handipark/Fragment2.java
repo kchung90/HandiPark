@@ -68,8 +68,8 @@ public class Fragment2 extends Fragment {
             }
         });
 
-        Log.d("DB123", "onCreateView: " + favRef);
-
         return root;
     }
+
+
 }

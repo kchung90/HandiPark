@@ -101,8 +101,18 @@ public class Fragment1 extends Fragment {
                                     startLocation.setLatitude(latitude);
                                     double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
 
-                                    cardArrayList.add(new CardViewAdapter.Card(location, space, notes, distance, false));
+                                    CardViewAdapter.Card card1 = new CardViewAdapter.Card(location, space, notes, distance);
+
+                                    if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference user = database.getReference(FirebaseAuth.getInstance().getUid());
+
+                                        user.child("favorites").setValue(card1);
+                                        user.child("history").setValue(card1);
+                                    }
+                                    cardArrayList.add(card1);
                                     Collections.sort(cardArrayList);
+
                                 }
 
                                 adapter = new CardViewAdapter(cardArrayList);

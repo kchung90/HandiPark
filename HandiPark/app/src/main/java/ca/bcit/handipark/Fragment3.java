@@ -45,15 +45,6 @@ public class Fragment3 extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-
-//        cardArrayList.add(new CardViewAdapter.Card(location, space, notes, distance));
-//        Collections.sort(cardArrayList);
-//    }
-//
-//    adapter = new CardViewAdapter(cardArrayList);
-//                                recyclerView.setAdapter(adapter);
-
-
         historyRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,52 +62,6 @@ public class Fragment3 extends Fragment {
         });
 
         Log.d("DB123", "onCreateView: " + historyRef);
-
-////        try {
-////            for (int i = 0; i < jsonArray.length(); i++) {
-////                JSONObject record = jsonArray.getJSONObject(i);
-////                JSONObject fields = record.getJSONObject("fields");
-////                String location = fields.getString("location");
-////                int space = fields.getInt("spaces");
-////                String notes = fields.getString("notes");
-////
-////                JSONObject geom = fields.getJSONObject("geom");
-////                JSONArray coordinates = geom.getJSONArray("coordinates");
-////                double longitude = coordinates.getDouble(0);
-////                double latitude = coordinates.getDouble(1);
-////
-////                double userLongitude = Double.parseDouble(Main2Activity.longitude);
-////                double userLatitude = Double.parseDouble(Main2Activity.latitude);
-////
-////                Location destination = new Location("");
-////                destination.setLongitude(userLongitude);
-////                destination.setLatitude(userLatitude);
-////
-////                Location startLocation = new Location("");
-////                startLocation.setLongitude(longitude);
-////                startLocation.setLatitude(latitude);
-////                double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
-////
-//                CardViewAdapter.Card card1 = new CardViewAdapter.Card(location, space, notes, distance);
-//
-//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                    DatabaseReference user = database.getReference(FirebaseAuth.getInstance().getUid());
-//
-//                    FirebaseDatabase.getInstance().getReference()
-//                    user.child("favorites").setValue(card1);
-//                    user.child("history").setValue(card1);
-//                }
-//                cardArrayList.add(card1);
-//                Collections.sort(cardArrayList);
-////            }
-////
-////            adapter = new CardViewAdapter(cardArrayList);
-////            recyclerView.setAdapter(adapter);
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
 
         return root;
     }

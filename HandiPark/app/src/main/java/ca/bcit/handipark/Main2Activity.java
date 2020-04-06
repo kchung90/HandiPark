@@ -48,7 +48,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         viewPager = findViewById(R.id.view_pager);
-        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
+        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 2);
         viewPager.setAdapter(myPagerAdapter);
 
         TabLayout tabs = findViewById(R.id.tabs);

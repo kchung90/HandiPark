@@ -73,26 +73,17 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
                 Card card = (Card) cb.getTag();
 
                 card.setSelected(cb.isChecked());
-                cardArrayList.get(position).setSelected(cb.isSelected());
+                cardArrayList.get(position).setSelected(cb.isChecked());
                 cardLocation = card.getLocation();
 
-//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                    DatabaseReference favorites = database.getReference(FirebaseAuth.getInstance().getUid() + "/favorites");
-//
-//                    favorites.setValue(card.getLocation());
-//                }
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference user = database.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
 
-//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                    DatabaseReference user = database.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
-//
-//                    FirebaseDatabase.getInstance().getReference()
-//                    user.child("favorites").setValue(card1);
-//                    user.child("history").setValue(card1);
-//                }
+                    user.child("favorites").setValue(cardArrayList.get(position));
+                }
 
-                Toast.makeText(v.getContext(), "You clicked " + cardLocation + " Status:" + cb.isChecked(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "You have saved " + cardLocation + " in your favorites.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -103,11 +94,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     }
 
     static class Card implements Comparable<Card> {
-        String location;
-        int space;
-        String notes;
-        double distance;
-        boolean isSelected;
+        public String location;
+        public int space;
+        public String notes;
+        public double distance;
+        public boolean isSelected;
 
         Card(String location, int space, String notes, double distance, boolean isSelected) {
             this.location = location;

@@ -22,7 +22,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -32,8 +31,6 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     ListView list;
     SearchView editsearch;
     ArrayAdapter<String> adapter;
-    String[] animalNameList;
-    ArrayList<String> arraylist = new ArrayList<>();
     ViewPager viewPager;
     public static String longitude;
     public static String latitude;
@@ -57,7 +54,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         int[] tabIcons = {
                 R.drawable.search,
                 R.drawable.favorite,
-                R.drawable.history
+                R.drawable.maps
         };
         for(int i=0; i<tabs.getTabCount(); i++){
             if(tabs.getTabAt(i) != null){
@@ -69,14 +66,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
 
         Intent intent = getIntent();
-        this.longitude = intent.getStringExtra(LONG);
-        this.latitude = intent.getStringExtra(LAT);
-
-        String message = String.format(
-                    "New Location \n Longitude: %1$s \n Latitude: %2$s",
-                longitude, latitude
-            );
-            Toast.makeText(Main2Activity.this, message, Toast.LENGTH_LONG).show();
+        longitude = intent.getStringExtra(LONG);
+        latitude = intent.getStringExtra(LAT);
 
         String apiKey = getString(R.string.api_key);
 

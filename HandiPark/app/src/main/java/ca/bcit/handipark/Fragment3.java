@@ -3,66 +3,83 @@ package ca.bcit.handipark;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class Fragment3 extends Fragment {
-    private ArrayList<CardViewAdapter.Card> cardArrayList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private CardViewAdapter adapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private String uuid = FirebaseAuth.getInstance().getUid();
-    DatabaseReference historyRef = FirebaseDatabase.getInstance().getReference(uuid + "/history");
-
-
-    public Fragment3() {
-        // Required empty public constructor
-    }
+    private MapView mMapView;
+    private GoogleMap googleMap;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_1, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_3, container, false);
 
-        recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
+        mMapView = (MapView) rootView.findViewById(R.id.mapView);
+        mMapView.onCreate(savedInstanceState);
 
-        historyRef.addValueEventListener(new ValueEventListener() {
+        mMapView.onResume(); // needed to get the map to display immediately
+
+        try {
+            MapsInitializer.initialize(requireActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                CardViewAdapter.Card card = dataSnapshot.getValue(CardViewAdapter.Card.class);
-                cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance));
-                Collections.sort(cardArrayList);
-                adapter = new CardViewAdapter(cardArrayList);
-                recyclerView.setAdapter(adapter);
-            }
+            public void onMapReady(GoogleMap mMap) {
+                googleMap = mMap;
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                // For showing a move to my location button
+                googleMap.setMyLocationEnabled(true);
+                googleMap.setTrafficEnabled(true);
+
+
+                // For dropping a marker at a point on the Map
+                LatLng cLoc = new LatLng(Double.parseDouble(Main2Activity.latitude), Double.parseDouble(Main2Activity.longitude));
+                googleMap.addMarker(new MarkerOptions().position(cLoc).title("Current Location").snippet("You are here"));
+
+                // For zooming automatically to the location of the marker
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(cLoc).zoom(12).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 
-        Log.d("DB123", "onCreateView: " + historyRef);
+        return rootView;
+    }
 
-        return root;
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
     }
 }

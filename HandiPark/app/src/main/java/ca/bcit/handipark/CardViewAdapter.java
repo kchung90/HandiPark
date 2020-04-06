@@ -63,16 +63,20 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
     }
 
     static class Card implements Comparable<Card> {
-        String location;
-        int space;
-        String notes;
-        double distance;
+        public String location;
+        public int space;
+        public String notes;
+        public double distance;
 
         Card(String location, int space, String notes, double distance) {
             this.location = location;
             this.space = space;
             this.notes = notes;
             this.distance = distance;
+        }
+
+        public Card() {
+
         }
 
         String getLocation() {

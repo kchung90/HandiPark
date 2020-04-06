@@ -13,6 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -88,7 +93,6 @@ public class Fragment1 extends Fragment {
                                     double latitude = geomJSONCoords.getDouble(1);
 
                                     ArrayList<Double> coordinates = new ArrayList<Double>(Arrays.asList(longitude, latitude));
-//                                    double[] coordinates = new double[]{longitude, latitude};
 
                                     double userLongitude = Double.parseDouble(Main2Activity.longitude);
                                     double userLatitude = Double.parseDouble(Main2Activity.latitude);
@@ -106,7 +110,6 @@ public class Fragment1 extends Fragment {
 
                                     cardArrayList.add(card);
                                     Collections.sort(cardArrayList);
-
                                 }
 
                                 adapter = new CardViewAdapter(cardArrayList);

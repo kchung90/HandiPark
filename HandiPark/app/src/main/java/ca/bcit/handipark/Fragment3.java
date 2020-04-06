@@ -21,8 +21,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Fragment3 extends Fragment {
     private MapView mMapView;
     private GoogleMap googleMap;
-    public static String longitude;
-    public static String latitude;
+    public double longitudeMap;
+    public double latitudeMap;
 
     private static final String[] LOCATION_PERMS = {
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -37,6 +37,8 @@ public class Fragment3 extends Fragment {
 
         mMapView.onResume(); // needed to get the map to display immediately
 
+
+
         try {
             MapsInitializer.initialize(requireActivity().getApplicationContext());
         } catch (Exception e) {
@@ -46,6 +48,15 @@ public class Fragment3 extends Fragment {
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
+                Bundle bundle = getArguments();
+                if(bundle != null){
+                    longitudeMap = bundle.getDouble("longitude");
+                    latitudeMap = bundle.getDouble("latitude");
+                } else {
+                    longitudeMap = Double.parseDouble(Main2Activity.longitude);
+                    latitudeMap = Double.parseDouble(Main2Activity.latitude);
+                }
+
                 googleMap = mMap;
 
                 // For showing a move to my location button
@@ -54,7 +65,7 @@ public class Fragment3 extends Fragment {
 
 
                 // For dropping a marker at a point on the Map
-                LatLng cLoc = new LatLng(Double.parseDouble(Main2Activity.latitude), Double.parseDouble(Main2Activity.longitude));
+                LatLng cLoc = new LatLng(latitudeMap, longitudeMap);
                 googleMap.addMarker(new MarkerOptions().position(cLoc).title("Current Location").snippet("You are here"));
 
                 // For zooming automatically to the location of the marker

@@ -1,16 +1,17 @@
 package ca.bcit.handipark;
 
-import android.content.Intent;
 import android.location.Location;
-import android.provider.ContactsContract;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +29,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         TextView textViewSpace;
         TextView textViewNotes;
         TextView textViewDistance;
-        CheckBox favSelected;
+//        CheckBox favSelected;
+        Button buttonDirections;
+        Button buttonAddFav;
+        Button buttonRemoveFav;
 
         ViewHolder(View v) {
             super(v);
@@ -37,7 +41,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             textViewSpace = (TextView) v.findViewById(R.id.space_availability);
             textViewNotes = (TextView) v.findViewById(R.id.notes);
             textViewDistance = (TextView) v.findViewById(R.id.distance);
-            favSelected = (CheckBox) v.findViewById(R.id.fav_button);
+//            favSelected = (CheckBox) v.findViewById(R.id.fav_button);
+            buttonDirections = (Button) v.findViewById(R.id.get_directions);
+            buttonAddFav = (Button) v.findViewById(R.id.add_fav);
+            buttonRemoveFav = (Button) v.findViewById(R.id.remove_fav);
+
         }
     }
 
@@ -68,11 +76,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         double distance = (double) ((destination.distanceTo(startLocation)) / 1000);
         double distanceRounded = Math.round(distance * 10.0) / 10.0;
 
-//        String key = "";
-//        for (int i = 0; i < cardArrayList.get(position).getCoordinates().size(); i++) {
-//            key += cardArrayList.get(position).getCoordinates().get(i);
-//        }
-
         holder.textViewLocation.setText(cardArrayList.get(position).getLocation());
         String spaces = "Spaces: " + cardArrayList.get(position).getSpace();
         String notes = "Notes: " + cardArrayList.get(position).getNotes();
@@ -80,17 +83,31 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         holder.textViewSpace.setText(spaces);
         holder.textViewNotes.setText(notes);
         holder.textViewDistance.setText(dist);
-        holder.favSelected.setChecked(cardArrayList.get(position).getSelected());
-        holder.favSelected.setTag(cardArrayList.get(position));
+//        holder.favSelected.setChecked(cardArrayList.get(position).getSelected());
+//        holder.favSelected.setTag(cardArrayList.get(position));
 
-        holder.favSelected.setOnClickListener(new View.OnClickListener() {
+//        holder.favSelected.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                CheckBox cb = (CheckBox) v;
+//                Card card = (Card) cb.getTag();
+//
+//                card.setSelected(cb.isChecked());
+//                cardArrayList.get(position).setSelected(cb.isChecked());
+//
+//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                    DatabaseReference user = database.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
+//
+//                    user.child("favorites").child(cardArrayList.get(position).getLocation()).setValue(cardArrayList.get(position));
+//                }
+//            }
+//        });
+
+        holder.buttonAddFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
-                Card card = (Card) cb.getTag();
-
-                card.setSelected(cb.isChecked());
-                cardArrayList.get(position).setSelected(cb.isChecked());
+                cardArrayList.get(position).setSelected(true);
 
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -99,9 +116,40 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
                     user.child("favorites").child(cardArrayList.get(position).getLocation()).setValue(cardArrayList.get(position));
                 }
 
-                Toast.makeText(v.getContext(), "You have saved " + cardArrayList.get(position).getLocation() + " in your favorites.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "You have added " + cardArrayList.get(position).getLocation() + " to your favorites.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        holder.buttonRemoveFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardArrayList.get(position).setSelected(false);
+
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference user = database.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
+
+                    user.child("favorites").child(cardArrayList.get(position).getLocation()).setValue(cardArrayList.get(position));
+                }
+
+                Toast.makeText(v.getContext(), "You have removed " + cardArrayList.get(position).getLocation() + " from your favorites.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//        holder.buttonDirections.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                Bundle bundle = new Bundle();
+//                bundle.putDouble("longitude", cardArrayList.get(position).getCoordinates().get(0));
+//                bundle.putDouble("latitude", cardArrayList.get(position).getCoordinates().get(1));
+//
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//                Fragment3 frag3 = new Fragment3();
+//                frag3.setArguments(bundle);
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.card_view, frag3).addToBackStack(null).commit();
+//            }
+//        });
     }
 
     @Override

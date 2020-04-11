@@ -1,5 +1,6 @@
 package ca.bcit.handipark;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -55,6 +56,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+//        System.out.println(myPagerAdapter.getItem(2).getView());
+
         int[] tabIcons = {
                 R.drawable.search,
                 R.drawable.favorite,
@@ -68,6 +71,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
         tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
+
+//        Objects.requireNonNull(tabs.getTabAt(2)).select();
 
         Intent intent = getIntent();
         longitude = intent.getStringExtra(LONG);

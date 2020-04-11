@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,6 +22,7 @@ import java.util.Objects;
 
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHolder> {
     private ArrayList<Card> cardArrayList;
+    private TabLayout tabs;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewLocation;
@@ -80,34 +83,16 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         holder.textViewSpace.setText(spaces);
         holder.textViewNotes.setText(notes);
         holder.textViewDistance.setText(dist);
-//        holder.favSelected.setChecked(cardArrayList.get(position).getSelected());
-//        holder.favSelected.setTag(cardArrayList.get(position));
-
-//        holder.favSelected.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                CheckBox cb = (CheckBox) v;
-//                Card card = (Card) cb.getTag();
-//
-//                card.setSelected(cb.isChecked());
-//                cardArrayList.get(position).setSelected(cb.isChecked());
-//
-//                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-//                    DatabaseReference user = database.getReference(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()));
-//
-//                    user.child("favorites").child(cardArrayList.get(position).getLocation()).setValue(cardArrayList.get(position));
-//                }
-//            }
-//        });
 
         holder.buttonDirections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tabs = v.getRootView().findViewById(R.id.tabs);
                 Main2Activity.longitude = "" + destination.getLongitude();
                 Main2Activity.latitude = "" + destination.getLatitude();
                 Main2Activity.title = cardArrayList.get(position).getLocation();
                 Main2Activity.snippet = "" + distanceRounded + " km away";
+                Objects.requireNonNull(tabs.getTabAt(2)).select();
             }
         });
 

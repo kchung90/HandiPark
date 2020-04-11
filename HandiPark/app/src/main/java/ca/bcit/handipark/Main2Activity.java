@@ -1,6 +1,5 @@
 package ca.bcit.handipark;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -13,8 +12,6 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,10 +34,10 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     ViewPager viewPager;
     public static String title;
     public static String snippet;
-    public static String longitude;
-    public static String latitude;
     public static String LONG = "longitude";
     public static String LAT = "latitude";
+    public static String longitude = LONG;
+    public static String latitude = LAT;
     private static String TAG = "PlacesActivity";
 
     @Override
@@ -55,8 +52,6 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-//        System.out.println(myPagerAdapter.getItem(2).getView());
 
         int[] tabIcons = {
                 R.drawable.search,
@@ -75,6 +70,8 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         Intent intent = getIntent();
         LONG = intent.getStringExtra(LONG);
         LAT = intent.getStringExtra(LAT);
+        longitude = LONG;
+        latitude = LAT;
 
         String apiKey = getString(R.string.api_key);
 

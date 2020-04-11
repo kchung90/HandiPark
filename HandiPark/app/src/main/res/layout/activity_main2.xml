@@ -34,19 +34,6 @@
                 android:iconifiedByDefault="false"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 />
-<!--            <SearchView-->
-<!--                android:id="@+id/search"-->
-<!--                android:searchIcon="@drawable/search_black"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:layout_marginStart="15dp"-->
-<!--                android:elevation="10dp"-->
-<!--                android:layout_marginEnd="15dp"-->
-<!--                android:layout_marginBottom="5dp"-->
-<!--                android:theme="@style/SearchViewStyle"-->
-<!--                android:background="#fefefe"-->
-<!--                android:iconifiedByDefault="false"/>-->
         </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout
@@ -62,26 +49,6 @@
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="@id/appbar" />
 
-<!--    <LinearLayout-->
-<!--        android:orientation="vertical"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--        <com.google.android.material.tabs.TabLayout-->
-<!--            android:id="@+id/tabs"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="?attr/colorPrimary" />-->
-
-<!--        <androidx.viewpager.widget.ViewPager-->
-<!--            android:id="@+id/view_pager"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            />-->
-<!--    </LinearLayout>-->
-
-
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:visibility="gone"
@@ -89,14 +56,4 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:layout_scrollFlags="scroll|enterAlways" />
-
-<!--    <ListView-->
-<!--        android:id="@+id/listview"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:layout_height="fill_parent"-->
-<!--        android:background="#fefefe"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-<!--        android:layout_below="@+id/search" />-->
-
-<!--</androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 </LinearLayout>

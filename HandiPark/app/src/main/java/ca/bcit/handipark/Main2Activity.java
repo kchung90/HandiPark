@@ -10,6 +10,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -66,6 +68,14 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
         tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            findViewById(R.id.signup).setVisibility(View.VISIBLE);
+            findViewById(R.id.signout).setVisibility(View.GONE);
+        } else{
+            findViewById(R.id.signup).setVisibility(View.GONE);
+            findViewById(R.id.signout).setVisibility(View.VISIBLE);
+        }
 
         Intent intent = getIntent();
         LONG = intent.getStringExtra(LONG);
@@ -147,5 +157,22 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
             adapter.getFilter().filter(newText);
         }
         return false;
+    }
+
+    public void onClickRegister(View view) {
+        Intent intent = new Intent(this, FirebaseUIActivity.class);
+        this.startActivity ( intent );
+
+        findViewById(R.id.signup).setVisibility(View.GONE);
+        findViewById(R.id.signout).setVisibility(View.VISIBLE);
+    }
+
+    public void onClickSignOut(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(Main2Activity.this, "Successfully Signed Out",
+                Toast.LENGTH_LONG).show();
+
+        findViewById(R.id.signup).setVisibility(View.VISIBLE);
+        findViewById(R.id.signout).setVisibility(View.GONE);
     }
 }

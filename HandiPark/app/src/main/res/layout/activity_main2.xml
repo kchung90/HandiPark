@@ -18,22 +18,53 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/autocomplete_fragment"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight=".89"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="15dp"
                 android:elevation="10dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="#fefefe"
                 android:layout_gravity="center"
                 android:iconifiedByDefault="false"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
                 />
+
+            <ImageButton
+                android:id="@+id/signup"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".11"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:elevation="10dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/logout"
+                android:onClick="onClickRegister"
+                style="?android:attr/borderlessButtonStyle"/>
+
+            <ImageButton
+                android:id="@+id/signout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".11"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:elevation="10dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/login"
+                android:visibility="gone"
+                android:onClick="onClickSignOut"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <com.google.android.material.tabs.TabLayout

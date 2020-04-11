@@ -1,5 +1,6 @@
 package ca.bcit.handipark;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,8 +50,7 @@ public class FirebaseUIActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Toast.makeText(FirebaseUIActivity.this, "Successfully Signed In",
                         Toast.LENGTH_LONG).show();
-                Intent i = new Intent(FirebaseUIActivity.this, MainActivity.class);
-                startActivity(i);
+                finish();
             } else {
                 Toast.makeText(FirebaseUIActivity.this, "Sign In Failed!",
                         Toast.LENGTH_LONG).show();

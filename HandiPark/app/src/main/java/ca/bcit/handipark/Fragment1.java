@@ -94,8 +94,8 @@ public class Fragment1 extends Fragment {
 
                                     ArrayList<Double> coordinates = new ArrayList<Double>(Arrays.asList(longitude, latitude));
 
-                                    double userLongitude = Double.parseDouble(Main2Activity.longitude);
-                                    double userLatitude = Double.parseDouble(Main2Activity.latitude);
+                                    double userLongitude = Double.parseDouble(Main2Activity.LONG);
+                                    double userLatitude = Double.parseDouble(Main2Activity.LAT);
 
                                     Location startLocation = new Location("");
                                     startLocation.setLongitude(userLongitude);

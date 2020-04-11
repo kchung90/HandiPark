@@ -62,8 +62,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        double userLongitude = Double.parseDouble(Main2Activity.longitude);
-        double userLatitude = Double.parseDouble(Main2Activity.latitude);
+        double userLongitude = Double.parseDouble(Main2Activity.LONG);
+        double userLatitude = Double.parseDouble(Main2Activity.LAT);
 
         Location startLocation = new Location("");
         startLocation.setLongitude(userLongitude);

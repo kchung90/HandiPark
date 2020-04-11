@@ -39,9 +39,9 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     public static String snippet;
     public static String longitude;
     public static String latitude;
-    public static final String LONG = "longitude";
-    public static final String LAT = "latitude";
-    private static final String TAG = "PlacesActivity";
+    public static String LONG = "longitude";
+    public static String LAT = "latitude";
+    private static String TAG = "PlacesActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +72,9 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
 
-//        Objects.requireNonNull(tabs.getTabAt(2)).select();
-
         Intent intent = getIntent();
-        longitude = intent.getStringExtra(LONG);
-        latitude = intent.getStringExtra(LAT);
+        LONG = intent.getStringExtra(LONG);
+        LAT = intent.getStringExtra(LAT);
 
         String apiKey = getString(R.string.api_key);
 

@@ -48,26 +48,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         setContentView(R.layout.activity_main2);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
-        viewPager = findViewById(R.id.view_pager);
-        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
-        viewPager.setAdapter(myPagerAdapter);
-
-        tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-
-        int[] tabIcons = {
-                R.drawable.search,
-                R.drawable.favorite,
-                R.drawable.maps
-        };
-        for(int i=0; i<tabs.getTabCount(); i++){
-            if(tabs.getTabAt(i) != null){
-                Objects.requireNonNull(tabs.getTabAt(i)).setIcon(tabIcons[i]);
-            }
-        }
-
-        tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
+        reload();
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             findViewById(R.id.signup).setVisibility(View.VISIBLE);
@@ -103,26 +84,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
                 latitude = LAT = "" + Objects.requireNonNull(place.getLatLng()).latitude;
                 title = "" + Objects.requireNonNull(place.getAddress());
 
-                viewPager = findViewById(R.id.view_pager);
-                final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
-                viewPager.setAdapter(myPagerAdapter);
-
-                TabLayout tabs = findViewById(R.id.tabs);
-                tabs.setupWithViewPager(viewPager);
-
-                int[] tabIcons = {
-                        R.drawable.search,
-                        R.drawable.favorite,
-                        R.drawable.maps
-                };
-                for(int i=0; i<tabs.getTabCount(); i++){
-                    if(tabs.getTabAt(i) != null){
-                        Objects.requireNonNull(tabs.getTabAt(i)).setIcon(tabIcons[i]);
-                    }
-                }
-
-                tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
+                reload();
             }
 
             @Override
@@ -130,6 +92,35 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
+    }
+
+    public void reload() {
+        viewPager = findViewById(R.id.view_pager);
+        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
+        viewPager.setAdapter(myPagerAdapter);
+
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+
+        int[] tabIcons = {
+                R.drawable.search,
+                R.drawable.favorite,
+                R.drawable.maps
+        };
+        for(int i=0; i<tabs.getTabCount(); i++){
+            if(tabs.getTabAt(i) != null){
+                Objects.requireNonNull(tabs.getTabAt(i)).setIcon(tabIcons[i]);
+            }
+        }
+
+        tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        reload();
     }
 
     @Override

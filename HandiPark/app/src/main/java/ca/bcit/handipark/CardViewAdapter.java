@@ -43,6 +43,14 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             buttonAddFav = (Button) v.findViewById(R.id.add_fav);
             buttonRemoveFav = (Button) v.findViewById(R.id.remove_fav);
 
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                buttonAddFav.setVisibility(View.VISIBLE);
+                buttonRemoveFav.setVisibility(View.VISIBLE);
+            } else {
+                buttonAddFav.setVisibility(View.GONE);
+                buttonRemoveFav.setVisibility(View.GONE);
+            }
+
         }
     }
 

@@ -38,38 +38,43 @@ public class Fragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_2, container, false);
 
-        recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            View root = inflater.inflate(R.layout.fragment_2, container, false);
 
-        favRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                cardArrayList.clear();
+            recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+            recyclerView.setHasFixedSize(true);
+            mLayoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setLayoutManager(mLayoutManager);
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    CardViewAdapter.Card card = snapshot.getValue(CardViewAdapter.Card.class);
+            favRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    cardArrayList.clear();
 
-                    if (card.isSelected) {
-                        cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance, card.coordinates, card.isSelected));
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        CardViewAdapter.Card card = snapshot.getValue(CardViewAdapter.Card.class);
+
+                        if (card.isSelected) {
+                            cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance, card.coordinates, card.isSelected));
+                        }
                     }
+
+                    adapter = new CardViewAdapter(cardArrayList);
+                    recyclerView.setAdapter(adapter);
                 }
 
-                adapter = new CardViewAdapter(cardArrayList);
-                recyclerView.setAdapter(adapter);
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+            return root;
+        } else {
+            View root = inflater.inflate(R.layout.fragment_2_visitor, container, false);
 
-        return root;
+            return root;
+        }
     }
-
-
 }

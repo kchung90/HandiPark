@@ -72,9 +72,9 @@ public class Fragment2 extends Fragment {
 
             return root;
         } else {
-            View root = inflater.inflate(R.layout.fragment_2_visitor, container, false);
+            View root2 = inflater.inflate(R.layout.fragment_2_visitor, container, false);
 
-            return root;
+            return root2;
         }
     }
 }

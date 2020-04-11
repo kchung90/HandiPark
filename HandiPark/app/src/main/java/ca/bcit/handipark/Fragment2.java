@@ -73,7 +73,7 @@ public class Fragment2 extends Fragment {
             return root;
         } else {
 
-            return inflater.inflate(R.layout.fragment_2, container, false);
+            return inflater.inflate(R.layout.fragment_2_visitor, container, false);
         }
     }
 }

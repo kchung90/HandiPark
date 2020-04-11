@@ -1,32 +1,21 @@
 package ca.bcit.handipark;
 
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Objects;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -39,7 +28,6 @@ public class Fragment1 extends Fragment {
     private RecyclerView recyclerView;
     private CardViewAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
 
     public Fragment1() {
         // Required empty public constructor
@@ -72,52 +60,53 @@ public class Fragment1 extends Fragment {
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     final String myResponse = response.body().string();
+                    cardArrayList.clear();
 
                     requireActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            try {
-                                JSONObject json = new JSONObject(myResponse);
-                                JSONArray jsonArray = json.getJSONArray("records");
+                        try {
+                            JSONObject json = new JSONObject(myResponse);
+                            JSONArray jsonArray = json.getJSONArray("records");
 
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject record = jsonArray.getJSONObject(i);
-                                    JSONObject fields = record.getJSONObject("fields");
-                                    String location = fields.getString("location");
-                                    int space = fields.getInt("spaces");
-                                    String notes = fields.getString("notes");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject record = jsonArray.getJSONObject(i);
+                                JSONObject fields = record.getJSONObject("fields");
+                                String location = fields.getString("location");
+                                int space = fields.getInt("spaces");
+                                String notes = fields.getString("notes");
 
-                                    JSONObject geom = fields.getJSONObject("geom");
-                                    JSONArray geomJSONCoords = geom.getJSONArray("coordinates");
-                                    double longitude = geomJSONCoords.getDouble(0);
-                                    double latitude = geomJSONCoords.getDouble(1);
+                                JSONObject geom = fields.getJSONObject("geom");
+                                JSONArray geomJSONCoords = geom.getJSONArray("coordinates");
+                                double longitude = geomJSONCoords.getDouble(0);
+                                double latitude = geomJSONCoords.getDouble(1);
 
-                                    ArrayList<Double> coordinates = new ArrayList<Double>(Arrays.asList(longitude, latitude));
+                                ArrayList<Double> coordinates = new ArrayList<Double>(Arrays.asList(longitude, latitude));
 
-                                    double userLongitude = Double.parseDouble(Main2Activity.LONG);
-                                    double userLatitude = Double.parseDouble(Main2Activity.LAT);
+                                double userLongitude = Double.parseDouble(Main2Activity.LONG);
+                                double userLatitude = Double.parseDouble(Main2Activity.LAT);
 
-                                    Location startLocation = new Location("");
-                                    startLocation.setLongitude(userLongitude);
-                                    startLocation.setLatitude(userLatitude);
+                                Location startLocation = new Location("");
+                                startLocation.setLongitude(userLongitude);
+                                startLocation.setLatitude(userLatitude);
 
-                                    Location destination = new Location("");
-                                    destination.setLongitude(longitude);
-                                    destination.setLatitude(latitude);
-                                    double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
+                                Location destination = new Location("");
+                                destination.setLongitude(longitude);
+                                destination.setLatitude(latitude);
+                                double distance = (double) ((startLocation.distanceTo(destination)) / 1000);
 
-                                    CardViewAdapter.Card card = new CardViewAdapter.Card(location, space, notes, distance, coordinates, false);
+                                CardViewAdapter.Card card = new CardViewAdapter.Card(location, space, notes, distance, coordinates, false);
 
-                                    cardArrayList.add(card);
-                                    Collections.sort(cardArrayList);
-                                }
-
-                                adapter = new CardViewAdapter(cardArrayList);
-                                recyclerView.setAdapter(adapter);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                cardArrayList.add(card);
+                                Collections.sort(cardArrayList);
                             }
+
+                            adapter = new CardViewAdapter(cardArrayList);
+                            recyclerView.setAdapter(adapter);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         }
                     });
 

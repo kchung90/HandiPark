@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +28,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         TextView textViewSpace;
         TextView textViewNotes;
         TextView textViewDistance;
-//        CheckBox favSelected;
         Button buttonDirections;
         Button buttonAddFav;
         Button buttonRemoveFav;
@@ -41,7 +39,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             textViewSpace = (TextView) v.findViewById(R.id.space_availability);
             textViewNotes = (TextView) v.findViewById(R.id.notes);
             textViewDistance = (TextView) v.findViewById(R.id.distance);
-//            favSelected = (CheckBox) v.findViewById(R.id.fav_button);
             buttonDirections = (Button) v.findViewById(R.id.get_directions);
             buttonAddFav = (Button) v.findViewById(R.id.add_fav);
             buttonRemoveFav = (Button) v.findViewById(R.id.remove_fav);
@@ -127,21 +124,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
                 Toast.makeText(v.getContext(), "You have removed " + cardArrayList.get(position).getLocation() + " from your favorites.", Toast.LENGTH_SHORT).show();
             }
         });
-
-//        holder.buttonDirections.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putDouble("longitude", cardArrayList.get(position).getCoordinates().get(0));
-//                bundle.putDouble("latitude", cardArrayList.get(position).getCoordinates().get(1));
-//
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                Fragment3 frag3 = new Fragment3();
-//                frag3.setArguments(bundle);
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.card_view, frag3).addToBackStack(null).commit();
-//            }
-//        });
     }
 
     @Override

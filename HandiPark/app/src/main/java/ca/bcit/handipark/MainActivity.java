@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getLatLng() + ", " + place.getAddress());
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
 
                 intent.putExtra(Main2Activity.LONG, "" + Objects.requireNonNull(place.getLatLng()).longitude);

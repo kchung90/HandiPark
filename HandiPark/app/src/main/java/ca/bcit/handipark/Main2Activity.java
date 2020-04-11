@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -32,6 +31,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
     SearchView editsearch;
     ArrayAdapter<String> adapter;
     ViewPager viewPager;
+    TabLayout tabs;
     public static String title;
     public static String snippet;
     public static String LONG = "longitude";
@@ -50,7 +50,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(myPagerAdapter);
 
-        TabLayout tabs = findViewById(R.id.tabs);
+        tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
         int[] tabIcons = {
@@ -70,6 +70,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         Intent intent = getIntent();
         LONG = intent.getStringExtra(LONG);
         LAT = intent.getStringExtra(LAT);
+        title = intent.getStringExtra(title);
         longitude = LONG;
         latitude = LAT;
 
@@ -88,12 +89,30 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getLatLng() + ", " + place.getAddress());
-                String message = String.format(
-                        "New Location \n Longitude: %1$s \n Latitude: %2$s",
-                        Objects.requireNonNull(place.getLatLng()).longitude, place.getLatLng().latitude
-                );
-                Toast.makeText(Main2Activity.this, message, Toast.LENGTH_LONG).show();
+                longitude = LONG = "" + Objects.requireNonNull(place.getLatLng()).longitude;
+                latitude = LAT = "" + Objects.requireNonNull(place.getLatLng()).latitude;
+                title = "" + Objects.requireNonNull(place.getAddress());
+
+                viewPager = findViewById(R.id.view_pager);
+                final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
+                viewPager.setAdapter(myPagerAdapter);
+
+                TabLayout tabs = findViewById(R.id.tabs);
+                tabs.setupWithViewPager(viewPager);
+
+                int[] tabIcons = {
+                        R.drawable.search,
+                        R.drawable.favorite,
+                        R.drawable.maps
+                };
+                for(int i=0; i<tabs.getTabCount(); i++){
+                    if(tabs.getTabAt(i) != null){
+                        Objects.requireNonNull(tabs.getTabAt(i)).setIcon(tabIcons[i]);
+                    }
+                }
+
+                tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
             }
 
             @Override

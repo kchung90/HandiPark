@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         TextView textViewSpace;
         TextView textViewNotes;
         TextView textViewDistance;
-        Button buttonDirections;
+        ImageButton buttonDirections;
         Button buttonAddFav;
         Button buttonRemoveFav;
 
@@ -39,7 +40,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             textViewSpace = (TextView) v.findViewById(R.id.space_availability);
             textViewNotes = (TextView) v.findViewById(R.id.notes);
             textViewDistance = (TextView) v.findViewById(R.id.distance);
-            buttonDirections = (Button) v.findViewById(R.id.get_directions);
+            buttonDirections = (ImageButton) v.findViewById(R.id.get_directions);
             buttonAddFav = (Button) v.findViewById(R.id.add_fav);
             buttonRemoveFav = (Button) v.findViewById(R.id.remove_fav);
 

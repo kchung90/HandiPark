@@ -2,11 +2,11 @@ package ca.bcit.handipark;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class Fragment2 extends Fragment {
@@ -36,7 +35,7 @@ public class Fragment2 extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
@@ -49,14 +48,15 @@ public class Fragment2 extends Fragment {
 
             favRef.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     cardArrayList.clear();
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         CardViewAdapter.Card card = snapshot.getValue(CardViewAdapter.Card.class);
 
+                        assert card != null;
                         if (card.isSelected) {
-                            cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance, card.coordinates, card.isSelected));
+                            cardArrayList.add(new CardViewAdapter.Card(card.location, card.space, card.notes, card.distance, card.coordinates, true));
                         }
                     }
 
@@ -65,16 +65,15 @@ public class Fragment2 extends Fragment {
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
                     System.out.println("The read failed: " + databaseError.getCode());
                 }
             });
 
             return root;
         } else {
-            View root2 = inflater.inflate(R.layout.fragment_2_visitor, container, false);
 
-            return root2;
+            return inflater.inflate(R.layout.fragment_2, container, false);
         }
     }
 }

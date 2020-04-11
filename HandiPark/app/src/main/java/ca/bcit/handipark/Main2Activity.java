@@ -165,5 +165,6 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
         findViewById(R.id.signup).setVisibility(View.VISIBLE);
         findViewById(R.id.signout).setVisibility(View.GONE);
+        reload();
     }
 }

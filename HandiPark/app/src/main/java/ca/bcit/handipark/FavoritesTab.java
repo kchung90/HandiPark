@@ -26,8 +26,8 @@ public class FavoritesTab extends Fragment {
     private RecyclerView recyclerView;
     private CardViewAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String uuid = FirebaseAuth.getInstance().getUid();
-    DatabaseReference favRef = FirebaseDatabase.getInstance().getReference(uuid + "/favorites");
+    private String uuid;
+    DatabaseReference favRef;
 
     public FavoritesTab() {
         // Required empty public constructor
@@ -45,6 +45,8 @@ public class FavoritesTab extends Fragment {
             recyclerView.setHasFixedSize(true);
             mLayoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(mLayoutManager);
+            uuid = FirebaseAuth.getInstance().getUid();
+            favRef = FirebaseDatabase.getInstance().getReference(uuid + "/favorites");
 
             favRef.addValueEventListener(new ValueEventListener() {
                 @Override

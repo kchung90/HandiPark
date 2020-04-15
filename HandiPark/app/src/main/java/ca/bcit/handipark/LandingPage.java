@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 
-public class Main2Activity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class LandingPage extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     ListView list;
     SearchView editsearch;
@@ -96,7 +96,7 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
     public void reload() {
         viewPager = findViewById(R.id.view_pager);
-        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
+        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(myPagerAdapter);
 
         TabLayout tabs = findViewById(R.id.tabs);
@@ -156,11 +156,12 @@ public class Main2Activity extends AppCompatActivity implements SearchView.OnQue
 
         findViewById(R.id.signup).setVisibility(View.GONE);
         findViewById(R.id.signout).setVisibility(View.VISIBLE);
+        reload();
     }
 
     public void onClickSignOut(View view) {
         FirebaseAuth.getInstance().signOut();
-        Toast.makeText(Main2Activity.this, "Successfully Signed Out",
+        Toast.makeText(LandingPage.this, "Successfully Signed Out",
                 Toast.LENGTH_LONG).show();
 
         findViewById(R.id.signup).setVisibility(View.VISIBLE);

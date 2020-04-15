@@ -68,8 +68,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        double userLongitude = Double.parseDouble(Main2Activity.LONG);
-        double userLatitude = Double.parseDouble(Main2Activity.LAT);
+        double userLongitude = Double.parseDouble(LandingPage.LONG);
+        double userLatitude = Double.parseDouble(LandingPage.LAT);
 
         Location startLocation = new Location("");
         startLocation.setLongitude(userLongitude);
@@ -94,10 +94,10 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 tabs = v.getRootView().findViewById(R.id.tabs);
-                Main2Activity.longitude = "" + destination.getLongitude();
-                Main2Activity.latitude = "" + destination.getLatitude();
-                Main2Activity.title = cardArrayList.get(position).getLocation();
-                Main2Activity.snippet = "" + distanceRounded + " km away";
+                LandingPage.longitude = "" + destination.getLongitude();
+                LandingPage.latitude = "" + destination.getLatitude();
+                LandingPage.title = cardArrayList.get(position).getLocation();
+                LandingPage.snippet = "" + distanceRounded + " km away";
                 Objects.requireNonNull(tabs.getTabAt(2)).select();
             }
         });

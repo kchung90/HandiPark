@@ -23,13 +23,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class Fragment1 extends Fragment {
+public class ResultsTab extends Fragment {
     private ArrayList<CardViewAdapter.Card> cardArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CardViewAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public Fragment1() {
+    public ResultsTab() {
         // Required empty public constructor
     }
 
@@ -83,8 +83,8 @@ public class Fragment1 extends Fragment {
 
                                 ArrayList<Double> coordinates = new ArrayList<Double>(Arrays.asList(longitude, latitude));
 
-                                double userLongitude = Double.parseDouble(Main2Activity.LONG);
-                                double userLatitude = Double.parseDouble(Main2Activity.LAT);
+                                double userLongitude = Double.parseDouble(LandingPage.LONG);
+                                double userLatitude = Double.parseDouble(LandingPage.LAT);
 
                                 Location startLocation = new Location("");
                                 startLocation.setLongitude(userLongitude);

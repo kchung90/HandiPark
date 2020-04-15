@@ -18,10 +18,10 @@
             android:value="AIzaSyCSuUsCmL1wOj1qO7LFCSR0YGli_3ROT1w" />
         <activity android:name=".FirebaseUIActivity"></activity>
         <activity
-            android:name=".Main2Activity"
+            android:name=".LandingPage"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

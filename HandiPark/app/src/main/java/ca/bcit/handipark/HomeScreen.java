@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity {
     private static final String[] LOCATION_PERMS = {
             Manifest.permission.ACCESS_FINE_LOCATION
     };
@@ -63,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                Intent intent = new Intent(HomeScreen.this, LandingPage.class);
 
-                intent.putExtra(Main2Activity.LONG, "" + Objects.requireNonNull(place.getLatLng()).longitude);
-                intent.putExtra(Main2Activity.LAT, "" + place.getLatLng().latitude);
-                intent.putExtra(Main2Activity.title, "" + place.getAddress());
+                intent.putExtra(LandingPage.LONG, "" + Objects.requireNonNull(place.getLatLng()).longitude);
+                intent.putExtra(LandingPage.LAT, "" + place.getLatLng().latitude);
+                intent.putExtra(LandingPage.title, "" + place.getAddress());
                 startActivity(intent);
             }
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickSignOut(View view) {
         FirebaseAuth.getInstance().signOut();
-        Toast.makeText(MainActivity.this, "Successfully Signed Out",
+        Toast.makeText(HomeScreen.this, "Successfully Signed Out",
                 Toast.LENGTH_LONG).show();
 
         findViewById(R.id.signup).setVisibility(View.VISIBLE);
@@ -110,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
     public class MyLocationListener implements LocationListener{
 
         public void onLocationChanged(Location loc) {
-            Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+            Intent intent = new Intent(HomeScreen.this, LandingPage.class);
 
-            intent.putExtra(Main2Activity.LONG, "" + loc.getLongitude());
-            intent.putExtra(Main2Activity.LAT, "" + loc.getLatitude());
-            intent.putExtra(Main2Activity.title, "Current Location");
-            intent.putExtra(Main2Activity.snippet, "You are here");
+            intent.putExtra(LandingPage.LONG, "" + loc.getLongitude());
+            intent.putExtra(LandingPage.LAT, "" + loc.getLatitude());
+            intent.putExtra(LandingPage.title, "Current Location");
+            intent.putExtra(LandingPage.snippet, "You are here");
             startActivity(intent);
         }
         public void onProviderDisabled(String arg0) {

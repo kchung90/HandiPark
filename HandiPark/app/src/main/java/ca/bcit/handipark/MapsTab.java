@@ -20,11 +20,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.libraries.places.api.model.Place;
 
-import java.util.Locale;
-
-public class Fragment3 extends Fragment {
+public class MapsTab extends Fragment {
     private MapView mMapView;
     private GoogleMap googleMap;
     public double longitudeMap;
@@ -59,8 +56,8 @@ public class Fragment3 extends Fragment {
                     longitudeMap = bundle.getDouble("longitude");
                     latitudeMap = bundle.getDouble("latitude");
                 } else {
-                    longitudeMap = Double.parseDouble(Main2Activity.longitude);
-                    latitudeMap = Double.parseDouble(Main2Activity.latitude);
+                    longitudeMap = Double.parseDouble(LandingPage.longitude);
+                    latitudeMap = Double.parseDouble(LandingPage.latitude);
                 }
 
                 googleMap = mMap;
@@ -73,7 +70,7 @@ public class Fragment3 extends Fragment {
 
                 // For dropping a marker at a point on the Map
                 final LatLng cLoc = new LatLng(latitudeMap, longitudeMap);
-                googleMap.addMarker(new MarkerOptions().position(cLoc).title(Main2Activity.title)
+                googleMap.addMarker(new MarkerOptions().position(cLoc).title(LandingPage.title)
                         .snippet("Click here for directions")).showInfoWindow();
 
                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {

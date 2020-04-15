@@ -19,11 +19,11 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return new Fragment1();
+                return new ResultsTab();
             case 1:
-                return new Fragment2();
+                return new FavoritesTab();
             case 2:
-                return new Fragment3();
+                return new MapsTab();
             default:
                 return null;
         }

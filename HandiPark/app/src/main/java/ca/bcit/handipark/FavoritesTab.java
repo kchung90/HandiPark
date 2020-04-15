@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class Fragment2 extends Fragment {
+public class FavoritesTab extends Fragment {
     private ArrayList<CardViewAdapter.Card> cardArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
     private CardViewAdapter adapter;
@@ -29,7 +29,7 @@ public class Fragment2 extends Fragment {
     private String uuid = FirebaseAuth.getInstance().getUid();
     DatabaseReference favRef = FirebaseDatabase.getInstance().getReference(uuid + "/favorites");
 
-    public Fragment2() {
+    public FavoritesTab() {
         // Required empty public constructor
     }
 

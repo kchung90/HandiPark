@@ -93,11 +93,13 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.ViewHo
         holder.buttonDirections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tabs = v.getRootView().findViewById(R.id.tabs);
                 LandingPage.longitude = "" + destination.getLongitude();
                 LandingPage.latitude = "" + destination.getLatitude();
                 LandingPage.title = cardArrayList.get(position).getLocation();
                 LandingPage.snippet = "" + distanceRounded + " km away";
+                tabs = v.getRootView().findViewById(R.id.tabs);
+                Objects.requireNonNull(tabs.getTabAt(0)).select();
+                Objects.requireNonNull(tabs.getTabAt(1)).select();
                 Objects.requireNonNull(tabs.getTabAt(2)).select();
             }
         });
